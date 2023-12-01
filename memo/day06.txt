@@ -1,0 +1,8 @@
+요청 uri 분석
+	web.xml
+	frontcontroller.java: 서블릿
+	dao.java
+		mapper.xml: sql문
+	action.java: 인터페이스
+	forward: 바로 화면으로 이동할 떄
+	redirect: 다른 컨트롤러로 이동할 때

@@ -1,0 +1,95 @@
+Member
+
+1. MemberVO.java
+	class Member{
+		private Long id;
+		private String memberId,
+		private String memberName;
+	}
+
+
+2. (테이블명)MembeMapper.xml
+	<mapper namespace = "member">
+		<select id ="a" parameterType = "long" resultType ="string">
+			select member_id from tbl_member where id = #{id}
+		</select>
+		<insert id ="b" parameterType = "com.app.vo.memberVO">
+			insert into tbl_member(member_id, member_name) values(#{memberId}, #{memberName})
+		</insert>
+		<update id ="c" parameterType = "com.app.vo.memberVO">
+			update tbl_member
+			set member_name = #{member_name}
+			where id = #{id}
+		</update>
+		<delete id ="d" parameterType = "long">
+			delete from tbl_member
+			where id = #{id}
+		</delete>
+	</mapper>
+
+3.MemberDAO.java
+	public String findMemberId(Long id){
+		return sqlSession.selectOne("member.a", id);
+	}
+	public void insert(MemberVO memberVO){
+		sqlSession.insert("member.b", memberVO);
+	}
+	public void update(MemberVO memberVO){
+		sqlSession.update("member.c", memberVO);
+	}
+	public void delete(Long id){
+		sqlSession.delete("member.d", id);
+	}
+
+
+
+1. PostVO.java
+   public class PostVO {
+      private Long id;
+      private String postTitle;
+      private String postContent;
+   }
+
+2. PostMapper.xml
+<mapper namespace="post">
+   <insert id="insert" parameterType="com.app.vo.PostVO">
+      insert into tbl_post(post_title, post_content)
+      values(#{postTitle}, #{postContent})
+
+   </insert>
+
+   <select id="select" parameterType="long" resultType="com.app.vo.PostVO">
+      select id, post_title, post_content from tbl_post
+      where id = #{id}
+   </select>
+
+   <update id="update" parameterType="com.app.vo.PostVO">
+      update tbl_post
+      set post_title = #{postTitle}, post_content = #{postContent}
+      where id = #{id}
+   </update>
+
+   <delete id="delete" parameterType="long">
+      delete from tbl_post
+      where id = #{id}
+   </delete>
+</mapper>
+
+3. PostDAO.java
+   public void insert(PostVO postVO){
+      sqlSession.insert("post.insert", postVO);
+   }
+
+   public PostVO select(Long id){
+      return sqlSession.selectOne("post.select", id);
+   }
+
+   public void update(PostVO postVO){
+      sqlSession.update("post.update", postVO);
+   }
+
+   public void delete(Long id){
+      sqlSession.delete("post.delet", id);
+   }
+
+
